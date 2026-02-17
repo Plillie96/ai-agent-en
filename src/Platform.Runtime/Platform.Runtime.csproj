@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Platform.Core\Platform.Core.csproj" />
+    <ProjectReference Include="..\Platform.Orchestration\Platform.Orchestration.csproj" />
+    <ProjectReference Include="..\Platform.Governance\Platform.Governance.csproj" />
+    <ProjectReference Include="..\Platform.Integration\Platform.Integration.csproj" />
+    <ProjectReference Include="..\Platform.Intelligence\Platform.Intelligence.csproj" />
+    <ProjectReference Include="..\Platform.Impact\Platform.Impact.csproj" />
+  </ItemGroup>
+
+</Project>

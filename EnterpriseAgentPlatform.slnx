@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Platform.Core/Platform.Core.csproj" />
+    <Project Path="src/Platform.Governance/Platform.Governance.csproj" />
+    <Project Path="src/Platform.Impact/Platform.Impact.csproj" />
+    <Project Path="src/Platform.Integration/Platform.Integration.csproj" />
+    <Project Path="src/Platform.Intelligence/Platform.Intelligence.csproj" />
+    <Project Path="src/Platform.Orchestration/Platform.Orchestration.csproj" />
+    <Project Path="src/Platform.Runtime/Platform.Runtime.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Platform.Tests/Platform.Tests.csproj" />
+  </Folder>
+</Solution>

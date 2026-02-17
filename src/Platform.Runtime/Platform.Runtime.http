@@ -1,0 +1,64 @@
+@baseUrl = https://localhost:7288
+
+### Health Check
+GET {{baseUrl}}/health
+
+### List All Registered Agents
+GET {{baseUrl}}/api/agents
+
+### List All Workflow Definitions
+GET {{baseUrl}}/api/workflows
+
+### Execute Sales Stalled Deal Recovery Workflow
+POST {{baseUrl}}/api/workflows/sales-stalled-deal-recovery/execute
+Content-Type: application/json
+
+{
+    "dealId": "OPP-48291",
+    "daysStalled": 11,
+    "amount": 480000,
+    "ContactEmail": "buyer@enterprise.com"
+}
+
+### Publish a Stalled Deal Event (triggers workflow via event bus)
+POST {{baseUrl}}/api/events
+Content-Type: application/json
+
+{
+    "source": "Salesforce",
+    "eventType": "sales.opportunity.stalled",
+    "department": "Sales",
+    "severity": 2,
+    "payload": {
+        "dealId": "OPP-99182",
+        "daysStalled": 14,
+        "amount": 320000
+    }
+}
+
+### Evaluate a Governance Policy
+POST {{baseUrl}}/api/governance/evaluate
+Content-Type: application/json
+
+{
+    "agentId": "sales-pricing",
+    "workflowInstanceId": "test-001",
+    "stepId": "step-1",
+    "action": "Execute money transfer",
+    "department": "Sales"
+}
+
+### Get Audit Trail
+GET {{baseUrl}}/api/audit
+
+### Get Audit Trail for Specific Agent
+GET {{baseUrl}}/api/audit?agentId=sales-deal-analysis
+
+### Get Impact Summary
+GET {{baseUrl}}/api/impact
+
+### Get Impact Dashboard (board-level metrics)
+GET {{baseUrl}}/api/impact/dashboard
+
+### Get Sales Department Impact
+GET {{baseUrl}}/api/impact?department=Sales
