@@ -13,8 +13,8 @@ public sealed class SecurityResponseAgent : IAgent
 
     public Task<AgentResult> ExecuteAsync(AgentContext context, CancellationToken ct = default)
     {
-        var userId = context.Inputs.GetValueOrDefault("UserId", "user-unknown")!;
-        var riskScore = context.Inputs.TryGetValue("AnomalyScore", out var a) ? Convert.ToDouble(a) : 75.0;
+        var userId = context.Inputs.GetString("UserId", "user-unknown");
+        var riskScore = context.Inputs.GetDouble("AnomalyScore", 75.0);
 
         return Task.FromResult(new AgentResult
         {

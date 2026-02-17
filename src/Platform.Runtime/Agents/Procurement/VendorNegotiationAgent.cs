@@ -13,7 +13,7 @@ public sealed class VendorNegotiationAgent : IAgent
 
     public Task<AgentResult> ExecuteAsync(AgentContext context, CancellationToken ct = default)
     {
-        var proposedIncrease = context.Inputs.TryGetValue("PriceIncrease", out var pi) ? Convert.ToDouble(pi) : 9.0;
+        var proposedIncrease = context.Inputs.GetDouble("PriceIncrease", 9.0);
         var contractCap = 5.0;
         var counterOffer = Math.Min(proposedIncrease, contractCap);
 
@@ -23,7 +23,7 @@ public sealed class VendorNegotiationAgent : IAgent
             Duration = TimeSpan.FromSeconds(2.5),
             Outputs = new Dictionary<string, object>
             {
-                ["VendorId"] = context.Inputs.GetValueOrDefault("VendorId", "VENDOR-001")!,
+                ["VendorId"] = context.Inputs.GetString("VendorId", "VENDOR-001"),
                 ["ProposedIncrease"] = proposedIncrease,
                 ["ContractEscalationCap"] = contractCap,
                 ["BenchmarkMedian"] = 4.2,

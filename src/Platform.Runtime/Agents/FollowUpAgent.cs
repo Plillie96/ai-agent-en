@@ -30,7 +30,7 @@ public sealed class FollowUpAgent : IAgent
             Impact = new ImpactRecord
             {
                 TimeSaved = TimeSpan.FromMinutes(25),
-                RevenueInfluenced = context.Inputs.TryGetValue("RevisedAmount", out var amt) ? Convert.ToDecimal(amt) : 0m,
+                RevenueInfluenced = context.Inputs.GetDecimal("RevisedAmount"),
                 Description = "Automated meeting booking, CRM update, and rep notification"
             }
         });

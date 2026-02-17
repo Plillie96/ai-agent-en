@@ -13,7 +13,7 @@ public sealed class PricingAgent : IAgent
 
     public Task<AgentResult> ExecuteAsync(AgentContext context, CancellationToken ct = default)
     {
-        var amount = context.Inputs.TryGetValue("Amount", out var amt) ? Convert.ToDecimal(amt) : 100000m;
+        var amount = context.Inputs.GetDecimal("Amount", 100000m);
         var maxDiscount = 0.15m; // 15% max approved discount
         var proposedDiscount = 0.10m; // 10% discount
         var revisedAmount = amount * (1 - proposedDiscount);

@@ -13,7 +13,7 @@ public sealed class AttritionDetectionAgent : IAgent
 
     public Task<AgentResult> ExecuteAsync(AgentContext context, CancellationToken ct = default)
     {
-        var teamId = context.Inputs.GetValueOrDefault("TeamId", "eng-platform")!;
+        var teamId = context.Inputs.GetString("TeamId", "eng-platform");
 
         return Task.FromResult(new AgentResult
         {

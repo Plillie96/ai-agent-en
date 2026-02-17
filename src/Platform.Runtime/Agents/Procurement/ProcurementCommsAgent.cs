@@ -13,7 +13,7 @@ public sealed class ProcurementCommsAgent : IAgent
 
     public Task<AgentResult> ExecuteAsync(AgentContext context, CancellationToken ct = default)
     {
-        var counterProposal = context.Inputs.TryGetValue("CounterProposal", out var cp) ? Convert.ToDouble(cp) : 5.0;
+        var counterProposal = context.Inputs.GetDouble("CounterProposal", 5.0);
 
         return Task.FromResult(new AgentResult
         {

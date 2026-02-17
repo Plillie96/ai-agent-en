@@ -21,7 +21,7 @@ public sealed class DocumentAgent : IAgent
             {
                 ["DocumentsSent"] = new[] { "SOC2-Report-2024.pdf", "Security-Whitepaper.pdf", "Data-Processing-Agreement.pdf" },
                 ["DeliveryMethod"] = "email",
-                ["Recipient"] = context.Inputs.GetValueOrDefault("ContactEmail", "prospect@company.com")!,
+                ["Recipient"] = context.Inputs.GetString("ContactEmail", "prospect@company.com"),
                 ["DocumentsSentAt"] = DateTimeOffset.UtcNow.ToString("O")
             },
             Impact = new ImpactRecord

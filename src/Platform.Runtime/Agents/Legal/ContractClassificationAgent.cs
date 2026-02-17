@@ -13,7 +13,7 @@ public sealed class ContractClassificationAgent : IAgent
 
     public Task<AgentResult> ExecuteAsync(AgentContext context, CancellationToken ct = default)
     {
-        var contractType = context.Inputs.GetValueOrDefault("ContractType", "SaaS Subscription Agreement")!;
+        var contractType = context.Inputs.GetString("ContractType", "SaaS Subscription Agreement");
 
         return Task.FromResult(new AgentResult
         {

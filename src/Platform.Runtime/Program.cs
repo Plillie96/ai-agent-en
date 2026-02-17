@@ -7,6 +7,7 @@ using Platform.Governance.Audit;
 using Platform.Governance.Engine;
 using Platform.Governance.Persistence;
 using Platform.Impact.Persistence;
+using Platform.Impact.Persistence;
 using Platform.Impact.Tracking;
 using Platform.Integration.Connectors;
 using Platform.Integration.Events;
@@ -41,14 +42,14 @@ if (storageMode == "InMemory")
     var inMemoryAuditLog = new InMemoryAuditLog();
     var inMemoryImpactTracker = new InMemoryImpactTracker();
     builder.Services.AddSingleton<IAuditLog>(inMemoryAuditLog);
-    builder.Services.AddSingleton(inMemoryAuditLog);
     builder.Services.AddSingleton<IImpactTracker>(inMemoryImpactTracker);
-    builder.Services.AddSingleton(inMemoryImpactTracker);
 }
 else
 {
-    builder.Services.AddScoped<IAuditLog, EfCoreAuditLog>();
-    builder.Services.AddScoped<IImpactTracker, EfCoreImpactTracker>();
+    builder.Services.AddScoped<EfCoreAuditLog>();
+    builder.Services.AddScoped<EfCoreImpactTracker>();
+    builder.Services.AddSingleton<IAuditLog, ScopedAuditLog>();
+    builder.Services.AddSingleton<IImpactTracker, ScopedImpactTracker>();
 }
 
 // === EVENT BUS ===
@@ -126,6 +127,8 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 
 app.UseHttpsRedirection();
+app.UseDefaultFiles();
+app.UseStaticFiles();
 
 // === HEALTH ===
 app.MapGet("/health", () => Results.Ok(new { Status = "Healthy", Timestamp = DateTimeOffset.UtcNow }))
@@ -235,14 +238,17 @@ app.MapPost("/api/governance/evaluate", async (PolicyEvaluationContext context, 
     .WithName("EvaluatePolicy");
 
 // === INTELLIGENCE ===
-app.MapPost("/api/intelligence/reason", async (
-    ReasoningRequest request,
-    IReasoningEngine engine) =>
+if (app.Services.GetService<IReasoningEngine>() is not null)
 {
-    var result = await engine.AnalyzeAsync(request);
-    return Results.Ok(result);
-})
-    .WithName("Reason");
+    app.MapPost("/api/intelligence/reason", async (
+        ReasoningRequest request,
+        IReasoningEngine engine) =>
+    {
+        var result = await engine.AnalyzeAsync(request);
+        return Results.Ok(result);
+    })
+        .WithName("Reason");
+}
 
 // === CONNECTORS ===
 app.MapGet("/api/connectors/health", async (IEnumerable<IEnterpriseConnector> connectors) =>

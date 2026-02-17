@@ -13,7 +13,7 @@ public sealed class ContractRedlineAgent : IAgent
 
     public Task<AgentResult> ExecuteAsync(AgentContext context, CancellationToken ct = default)
     {
-        var riskScore = context.Inputs.TryGetValue("OverallRiskScore", out var rs) ? Convert.ToDouble(rs) : 5.0;
+        var riskScore = context.Inputs.GetDouble("OverallRiskScore", 5.0);
         var requiresHumanReview = riskScore > 6.0;
 
         return Task.FromResult(new AgentResult

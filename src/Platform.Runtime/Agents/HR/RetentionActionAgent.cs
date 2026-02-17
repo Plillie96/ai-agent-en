@@ -13,7 +13,7 @@ public sealed class RetentionActionAgent : IAgent
 
     public Task<AgentResult> ExecuteAsync(AgentContext context, CancellationToken ct = default)
     {
-        var atRiskCount = context.Inputs.TryGetValue("AtRiskEmployees", out var ar) ? Convert.ToInt32(ar) : 0;
+        var atRiskCount = context.Inputs.GetInt("AtRiskEmployees");
 
         return Task.FromResult(new AgentResult
         {
