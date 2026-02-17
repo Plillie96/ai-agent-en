@@ -46,10 +46,11 @@ public sealed class EfCoreAuditLog : IAuditLog
         if (query.To.HasValue)
             q = q.Where(e => e.Timestamp <= query.To.Value);
 
-        var entities = await q
+        var entities = await q.ToListAsync(ct);
+        entities = entities
             .OrderByDescending(e => e.Timestamp)
             .Take(query.Limit)
-            .ToListAsync(ct);
+            .ToList();
 
         return entities.Select(e => new AuditEntry
         {

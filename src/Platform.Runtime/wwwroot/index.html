@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Agent Platform</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="app">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            &#9670; Agent Platform
+            <small>Enterprise Autonomous Operations</small>
+        </div>
+        <div class="nav-item active" data-section="dashboard" onclick="navigate(this)">
+            <span class="icon">&#9632;</span> Dashboard
+        </div>
+        <div class="nav-item" data-section="agents" onclick="navigate(this)">
+            <span class="icon">&#9673;</span> Agents
+        </div>
+        <div class="nav-item" data-section="workflows" onclick="navigate(this)">
+            <span class="icon">&#9654;</span> Workflows
+        </div>
+        <div class="nav-item" data-section="audit" onclick="navigate(this)">
+            <span class="icon">&#9881;</span> Audit Trail
+        </div>
+        <div class="nav-item" data-section="events" onclick="navigate(this)">
+            <span class="icon">&#9889;</span> Events
+        </div>
+        <div class="nav-item" data-section="connectors" onclick="navigate(this)">
+            <span class="icon">&#8644;</span> Connectors
+        </div>
+    </aside>
+
+    <main class="main">
+        <!-- DASHBOARD -->
+        <div id="section-dashboard" class="section active">
+            <div class="page-header">
+                <h1>Operations Dashboard</h1>
+                <p>Real-time enterprise automation metrics</p>
+            </div>
+            <div class="card-grid" id="dashboard-cards"><div class="loading"><div class="spinner"></div></div></div>
+            <div class="table-card">
+                <div class="table-card-header">
+                    <h2>Department Impact</h2>
+                    <button class="btn btn-sm btn-outline" onclick="loadDashboard()">&#8635; Refresh</button>
+                </div>
+                <div id="department-table"><div class="loading"><div class="spinner"></div></div></div>
+            </div>
+        </div>
+
+        <!-- AGENTS -->
+        <div id="section-agents" class="section">
+            <div class="page-header">
+                <h1>Registered Agents</h1>
+                <p>All autonomous agents across departments</p>
+            </div>
+            <div id="agents-content"><div class="loading"><div class="spinner"></div></div></div>
+        </div>
+
+        <!-- WORKFLOWS -->
+        <div id="section-workflows" class="section">
+            <div class="page-header">
+                <h1>Workflow Definitions</h1>
+                <p>Multi-agent orchestration workflows</p>
+            </div>
+            <div id="workflows-content"><div class="loading"><div class="spinner"></div></div></div>
+        </div>
+
+        <!-- AUDIT -->
+        <div id="section-audit" class="section">
+            <div class="page-header">
+                <h1>Audit Trail</h1>
+                <p>Complete governance and compliance log</p>
+            </div>
+            <div class="table-card">
+                <div class="table-card-header">
+                    <h2>Recent Audit Entries</h2>
+                    <button class="btn btn-sm btn-outline" onclick="loadAudit()">&#8635; Refresh</button>
+                </div>
+                <div id="audit-content"><div class="loading"><div class="spinner"></div></div></div>
+            </div>
+        </div>
+
+        <!-- EVENTS -->
+        <div id="section-events" class="section">
+            <div class="page-header">
+                <h1>System Events</h1>
+                <p>Publish events to trigger autonomous workflows</p>
+            </div>
+            <div id="events-content"></div>
+        </div>
+
+        <!-- CONNECTORS -->
+        <div id="section-connectors" class="section">
+            <div class="page-header">
+                <h1>Enterprise Connectors</h1>
+                <p>Integration health with enterprise systems</p>
+            </div>
+            <div id="connectors-content"><div class="loading"><div class="spinner"></div></div></div>
+        </div>
+    </main>
+</div>
+
+<div class="toast-container" id="toasts"></div>
+<div id="modal-root"></div>
+
+<script src="/js/app.js"></script>
+</body>
+</html>
